@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>NeuroGrade AI Analytics</title>
+
+    <!-- GOOGLE FONT -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- FONT AWESOME -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+<style>
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+
+    background:#0f172a;
+    color:white;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* ========================================= */
+/* BACKGROUND GLOW */
+/* ========================================= */
+
+.bg-glow{
+
+    position:absolute;
+    width:350px;
+    height:350px;
+    background:#3b82f6;
+    filter:blur(140px);
+    top:-100px;
+    left:-100px;
+    opacity:0.3;
+}
+
+.bg-glow2{
+
+    position:absolute;
+    width:300px;
+    height:300px;
+    background:#9333ea;
+    filter:blur(120px);
+    bottom:-100px;
+    right:-100px;
+    opacity:0.3;
+}
+
+/* ========================================= */
+/* NAVBAR */
+/* ========================================= */
+
+.navbar{
+
+    width:100%;
+    padding:20px 50px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:rgba(255,255,255,0.05);
+
+    backdrop-filter:blur(10px);
+
+    border-bottom:1px solid rgba(255,255,255,0.1);
+
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+
+    font-size:28px;
+    font-weight:700;
+    color:#60a5fa;
+}
+
+.nav-links{
+
+    display:flex;
+    gap:30px;
+}
+
+.nav-links a{
+
+    color:white;
+    text-decoration:none;
+    transition:0.3s;
+    font-weight:500;
+}
+
+.nav-links a:hover{
+
+    color:#60a5fa;
+}
+
+/* ========================================= */
+/* HERO SECTION */
+/* ========================================= */
+
+.hero{
+
+    padding:60px 8%;
+}
+
+.hero h1{
+
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.hero p{
+
+    color:#cbd5e1;
+    font-size:18px;
+}
+
+/* ========================================= */
+/* ANALYTICS GRID */
+/* ========================================= */
+
+.analytics-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(400px,1fr));
+
+    gap:30px;
+
+    padding:20px 8% 60px;
+}
+
+/* ========================================= */
+/* ANALYTICS CARD */
+/* ========================================= */
+
+.analytics-card{
+
+    background:rgba(255,255,255,0.06);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    transition:0.4s;
+
+    box-shadow:
+    0 8px 30px rgba(0,0,0,0.2);
+}
+
+.analytics-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#60a5fa;
+}
+
+.analytics-header{
+
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    margin-bottom:20px;
+}
+
+.analytics-header i{
+
+    font-size:28px;
+    color:#60a5fa;
+}
+
+.analytics-header h2{
+
+    font-size:22px;
+}
+
+.analytics-card img{
+
+    width:100%;
+
+    border-radius:15px;
+
+    margin-top:15px;
+
+    background:white;
+}
+
+/* ========================================= */
+/* STATS SECTION */
+/* ========================================= */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+    padding:0 8% 40px;
+}
+
+.stat-card{
+
+    background:rgba(255,255,255,0.06);
+
+    border-radius:18px;
+
+    padding:25px;
+
+    text-align:center;
+
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.stat-card h3{
+
+    color:#cbd5e1;
+
+    margin-bottom:10px;
+}
+
+.stat-card p{
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:#60a5fa;
+}
+
+/* ========================================= */
+/* RESPONSIVE */
+/* ========================================= */
+
+@media(max-width:768px){
+
+    .navbar{
+
+        flex-direction:column;
+
+        gap:20px;
+    }
+
+    .hero h1{
+
+        font-size:32px;
+    }
+
+    .analytics-grid{
+
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+
+<div class="bg-glow"></div>
+
+<div class="bg-glow2"></div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+    <div class="logo">
+
+        NeuroGrade AI
+
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/dashboard">
+
+            Dashboard
+
+        </a>
+
+        <a href="/analytics">
+
+            Analytics
+
+        </a>
+
+        <a href="/insights">
+
+            AI Insights
+
+        </a>
+
+        <a href="/reports">
+
+            Reports
+
+        </a>
+
+    </div>
+
+</div>
+
+<!-- HERO -->
+
+<div class="hero">
+
+    <h1>
+
+        Student Analytics
+
+    </h1>
+
+    <p>
+
+        AI-powered performance analytics
+        and academic monitoring dashboard
+
+    </p>
+
+</div>
+
+<!-- STATS -->
+
+<div class="stats">
+
+    <div class="stat-card">
+
+        <h3>
+
+            Attendance
+
+        </h3>
+
+        <p>
+
+            {{ attendance }}%
+
+        </p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h3>
+
+            Stress Level
+
+        </h3>
+
+        <p>
+
+            {{ stress_level }}
+
+        </p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h3>
+
+            Predicted Grade
+
+        </h3>
+
+        <p>
+
+            {{ prediction }}
+
+        </p>
+
+    </div>
+
+</div>
+
+<!-- ANALYTICS -->
+
+<div class="analytics-grid">
+
+    <!-- ATTENDANCE -->
+
+    <div class="analytics-card">
+
+        <div class="analytics-header">
+
+            <i class="fa-solid fa-chart-column"></i>
+
+            <h2>
+
+                Attendance Analysis
+
+            </h2>
+
+        </div>
+
+        <img
+            src="{{ url_for(
+            'static',
+            filename='charts/attendance.png'
+            ) }}"
+        >
+
+    </div>
+
+    <!-- STRESS -->
+
+    <div class="analytics-card">
+
+        <div class="analytics-header">
+
+            <i class="fa-solid fa-brain"></i>
+
+            <h2>
+
+                Stress Analysis
+
+            </h2>
+
+        </div>
+
+        <img
+            src="{{ url_for(
+            'static',
+            filename='charts/stress.png'
+            ) }}"
+        >
+
+    </div>
+    
+</div>
+
+</body>
+
+</html>
