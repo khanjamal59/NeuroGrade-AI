@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroGrade AI Dashboard</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/4ad53f8f73.js" crossorigin="anonymous"></script>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:'Poppins', sans-serif;
+            background:#020617;
+            color:white;
+            overflow-x:hidden;
+            min-height:100vh;
+        }
+
+        /* Animated Background */
+
+        .bg{
+            position:fixed;
+            width:100%;
+            height:100%;
+            z-index:-5;
+            overflow:hidden;
+        }
+
+        .circle{
+            position:absolute;
+            border-radius:50%;
+            filter:blur(140px);
+            animation:float 10s infinite alternate ease-in-out;
+        }
+
+        .circle1{
+            width:500px;
+            height:500px;
+            background:#0ea5e9;
+            top:-100px;
+            left:-100px;
+            opacity:0.18;
+        }
+
+        .circle2{
+            width:450px;
+            height:450px;
+            background:#8b5cf6;
+            bottom:-100px;
+            right:-100px;
+            opacity:0.18;
+        }
+
+        @keyframes float{
+            from{
+                transform:translateY(0px);
+            }
+            to{
+                transform:translateY(30px);
+            }
+        }
+
+        /* Navbar */
+
+        .navbar{
+            width:90%;
+            margin:auto;
+            padding:25px 0;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .logo{
+            font-size:34px;
+            font-family:'Orbitron', sans-serif;
+            font-weight:700;
+            color:#38bdf8;
+            letter-spacing:2px;
+        }
+
+        .nav-links a{
+            color:#cbd5e1;
+            text-decoration:none;
+            margin-left:30px;
+            transition:0.3s;
+            font-size:16px;
+        }
+
+        .nav-links a:hover{
+            color:#38bdf8;
+        }
+
+        /* Main */
+
+        .container{
+            width:90%;
+            max-width:1350px;
+            margin:auto;
+            padding-top:20px;
+        }
+
+        .hero{
+            text-align:center;
+            margin-bottom:50px;
+        }
+
+        .hero h1{
+            font-size:65px;
+            font-family:'Orbitron', sans-serif;
+            background:linear-gradient(
+                90deg,
+                #38bdf8,
+                #8b5cf6
+            );
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+
+        .hero p{
+            color:#94a3b8;
+            margin-top:15px;
+            font-size:18px;
+        }
+
+        /* Dashboard */
+
+        .dashboard{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:25px;
+        }
+
+        .card{
+            position:relative;
+            background:rgba(15,23,42,0.65);
+            border:1px solid rgba(255,255,255,0.08);
+            backdrop-filter:blur(25px);
+            border-radius:28px;
+            padding:35px;
+            overflow:hidden;
+            transition:0.4s ease;
+            box-shadow:0 0 35px rgba(56,189,248,0.08);
+        }
+
+        .card::before{
+            content:'';
+            position:absolute;
+            width:180px;
+            height:180px;
+            background:rgba(56,189,248,0.08);
+            border-radius:50%;
+            top:-60px;
+            right:-60px;
+        }
+
+        .card:hover{
+            transform:translateY(-10px) scale(1.02);
+            border:1px solid rgba(56,189,248,0.4);
+            box-shadow:0 0 40px rgba(56,189,248,0.2);
+        }
+
+        .card h2{
+            color:#38bdf8;
+            margin-bottom:25px;
+            font-size:24px;
+            position:relative;
+            z-index:2;
+        }
+
+        .icon{
+            font-size:40px;
+            margin-bottom:20px;
+            color:#8b5cf6;
+        }
+
+        .result{
+            font-size:55px;
+            font-weight:700;
+            color:#22c55e;
+            font-family:'Orbitron', sans-serif;
+        }
+
+        .recommendation{
+            color:#e2e8f0;
+            line-height:1.9;
+            font-size:17px;
+        }
+
+        .score{
+            font-size:65px;
+            font-weight:bold;
+            color:#facc15;
+            font-family:'Orbitron', sans-serif;
+        }
+
+        /* Analytics Section */
+
+        .analytics{
+            margin-top:40px;
+            display:grid;
+            grid-template-columns:2fr 1fr;
+            gap:25px;
+        }
+
+        .chart-card{
+            background:rgba(15,23,42,0.65);
+            border-radius:28px;
+            padding:35px;
+            backdrop-filter:blur(25px);
+            border:1px solid rgba(255,255,255,0.08);
+        }
+
+        .chart-card h2{
+            color:#38bdf8;
+            margin-bottom:25px;
+        }
+
+        .progress{
+            margin-bottom:25px;
+        }
+
+        .progress p{
+            margin-bottom:10px;
+            color:#cbd5e1;
+        }
+
+        .bar{
+            width:100%;
+            height:12px;
+            border-radius:20px;
+            background:#1e293b;
+            overflow:hidden;
+        }
+
+        .fill{
+            height:100%;
+            border-radius:20px;
+            background:linear-gradient(
+                90deg,
+                #38bdf8,
+                #8b5cf6
+            );
+        }
+
+        /* Circular Stats */
+
+        .stats{
+            display:flex;
+            flex-direction:column;
+            gap:20px;
+        }
+
+        .mini-card{
+            background:rgba(15,23,42,0.65);
+            border-radius:24px;
+            padding:25px;
+            text-align:center;
+            border:1px solid rgba(255,255,255,0.08);
+            transition:0.3s;
+        }
+
+        .mini-card:hover{
+            transform:translateY(-5px);
+            border:1px solid #38bdf8;
+        }
+
+        .mini-card h3{
+            color:#38bdf8;
+            margin-bottom:10px;
+        }
+
+        .mini-card p{
+            font-size:35px;
+            font-weight:bold;
+            color:#22c55e;
+        }
+
+        /* Button */
+
+        .btn{
+            display:inline-block;
+            margin-top:50px;
+            padding:18px 40px;
+            border-radius:18px;
+            background:linear-gradient(
+                90deg,
+                #38bdf8,
+                #8b5cf6
+            );
+
+            color:white;
+            text-decoration:none;
+            font-size:18px;
+            font-weight:600;
+            transition:0.4s;
+            box-shadow:0 0 20px rgba(56,189,248,0.2);
+        }
+
+        .btn:hover{
+            transform:translateY(-5px);
+            box-shadow:0 0 35px rgba(56,189,248,0.4);
+        }
+
+        .center{
+            text-align:center;
+        }
+
+        /* Responsive */
+
+        @media(max-width:1100px){
+
+            .dashboard{
+                grid-template-columns:1fr;
+            }
+
+            .analytics{
+                grid-template-columns:1fr;
+            }
+
+            .hero h1{
+                font-size:45px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Background -->
+
+    <div class="bg">
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+    </div>
+
+    <!-- Navbar -->
+
+    <div class="navbar">
+
+        <div class="logo">
+            NeuroGrade AI
+        </div>
+
+        <div class="nav-links">
+            <a href="#dashboard">Dashboard</a>
+            <a href="#analytics">Analytics</a>
+            <a href="#insights">AI Insights</a>
+            <a href="#reports">Reports</a>
+        </div>
+
+    </div>
+
+    <!-- Main -->
+
+    <div class="container">
+
+        <!-- Hero -->
+
+        <div class="hero">
+
+            <h1>AI Student Intelligence Dashboard</h1>
+
+            <p>
+                Advanced academic prediction and AI-powered performance analytics
+            </p>
+
+        </div>
+
+        <!-- Dashboard Cards -->
+
+        <div class="dashboard">
+
+            <!-- Grade -->
+
+            <div class="card">
+
+                <div class="icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+
+                <h2>Predicted Grade</h2>
+
+                <div class="result">
+                    {{ prediction }}
+                </div>
+
+            </div>
+
+            <!-- Recommendation -->
+
+            <div class="card">
+
+                <div class="icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+
+                <h2>AI Recommendation</h2>
+
+                <div class="recommendation">
+                    {{ recommendation }}
+                </div>
+
+            </div>
+
+            <!-- Score -->
+
+            <div class="card">
+
+                <div class="icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+
+                <h2>Performance Score</h2>
+
+                <div class="score">
+                    91%
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Analytics -->
+
+        <div class="analytics">
+
+            <!-- Progress Bars -->
+
+            <div class="chart-card">
+
+                <h2>Student Analytics</h2>
+
+                <div class="progress">
+                    <p>Academic Performance</p>
+
+                    <div class="bar">
+                        <div class="fill" style="width:91%"></div>
+                    </div>
+                </div>
+
+                <div class="progress">
+                    <p>Attendance Consistency</p>
+
+                    <div class="bar">
+                        <div class="fill" style="width:84%"></div>
+                    </div>
+                </div>
+
+                <div class="progress">
+                    <p>Stress Stability</p>
+
+                    <div class="bar">
+                        <div class="fill" style="width:72%"></div>
+                    </div>
+                </div>
+
+                <div class="progress">
+                    <p>Learning Efficiency</p>
+
+                    <div class="bar">
+                        <div class="fill" style="width:88%"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Stats -->
+
+            <div class="stats">
+
+                <div class="mini-card">
+
+                    <h3>AI Accuracy</h3>
+
+                    <p>91%</p>
+
+                </div>
+
+                <div class="mini-card">
+
+                    <h3>Stress Level</h3>
+
+                    <p>Low</p>
+
+                </div>
+
+                <div class="mini-card">
+
+                    <h3>Prediction Status</h3>
+
+                    <p>Stable</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Button -->
+
+        <div class="center">
+
+            <a href="/" class="btn">
+                Analyze Another Student
+            </a>
+
+        </div>
+
+    </div>
+<!-- ===================================== -->
+<!--  NEUROGRADE AI CHATBOT -->
+<!-- ===================================== -->
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+>
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+
+<style>
+
+:root{
+
+    --primary:#2563eb;
+    --secondary:#7c3aed;
+
+    --bg-dark:#0f172a;
+    --bg-card:#111827;
+
+    --text:#ffffff;
+    --text-light:#cbd5e1;
+
+    --border:
+    rgba(255,255,255,0.08);
+}
+
+*{
+
+    font-family:'Inter', sans-serif;
+}
+
+/* ========================================= */
+/* FLOAT BUTTON */
+/* ========================================= */
+
+.chat-toggle{
+
+    position:fixed;
+
+    bottom:28px;
+    right:28px;
+
+    width:74px;
+    height:74px;
+
+    border:none;
+
+    border-radius:22px;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color:white;
+
+    font-size:28px;
+
+    cursor:pointer;
+
+    z-index:9999;
+
+    box-shadow:
+    0 15px 40px rgba(37,99,235,0.35);
+
+    transition:0.35s ease;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.chat-toggle:hover{
+
+    transform:
+    translateY(-6px)
+    scale(1.05);
+
+    box-shadow:
+    0 25px 50px rgba(124,58,237,0.45);
+}
+
+/* ========================================= */
+/* CHAT WINDOW */
+/* ========================================= */
+
+.chat-container{
+
+    position:fixed;
+
+    bottom:120px;
+    right:28px;
+
+    width:400px;
+    height:680px;
+
+    display:none;
+    flex-direction:column;
+
+    overflow:hidden;
+
+    border-radius:30px;
+
+    background:
+    rgba(15,23,42,0.95);
+
+    backdrop-filter:blur(22px);
+
+    border:1px solid var(--border);
+
+    box-shadow:
+    0 30px 80px rgba(0,0,0,0.45);
+
+    z-index:9999;
+
+    animation:popup 0.35s ease;
+}
+
+@keyframes popup{
+
+    from{
+
+        opacity:0;
+
+        transform:
+        translateY(30px)
+        scale(0.95);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+        translateY(0)
+        scale(1);
+    }
+}
+
+/* ========================================= */
+/* HEADER */
+/* ========================================= */
+
+.chat-header{
+
+    padding:22px;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    color:white;
+}
+
+.chat-left{
+
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+/* ========================================= */
+/* AVATAR */
+/* ========================================= */
+
+.bot-avatar{
+
+    width:56px;
+    height:56px;
+
+    border-radius:18px;
+
+    background:
+    rgba(255,255,255,0.18);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:24px;
+}
+
+/* ========================================= */
+/* INFO */
+/* ========================================= */
+
+.bot-info h2{
+
+    font-size:18px;
+    font-weight:700;
+}
+
+.bot-info p{
+
+    margin-top:4px;
+
+    font-size:13px;
+
+    opacity:0.85;
+}
+
+/* ========================================= */
+/* ONLINE DOT */
+/* ========================================= */
+
+.status{
+
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.dot{
+
+    width:10px;
+    height:10px;
+
+    border-radius:50%;
+
+    background:#22c55e;
+
+    box-shadow:
+    0 0 10px #22c55e;
+}
+
+/* ========================================= */
+/* CLOSE */
+/* ========================================= */
+
+.close-btn{
+
+    border:none;
+
+    background:none;
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.close-btn:hover{
+
+    transform:rotate(90deg);
+}
+
+/* ========================================= */
+/* CHAT AREA */
+/* ========================================= */
+
+.chat-box{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    padding:24px;
+
+    background:
+    linear-gradient(
+        to bottom,
+        #0f172a,
+        #111827
+    );
+}
+
+/* ========================================= */
+/* SCROLLBAR */
+/* ========================================= */
+
+.chat-box::-webkit-scrollbar{
+
+    width:6px;
+}
+
+.chat-box::-webkit-scrollbar-thumb{
+
+    background:#334155;
+
+    border-radius:10px;
+}
+
+/* ========================================= */
+/* MESSAGE */
+/* ========================================= */
+
+.message-wrapper{
+
+    display:flex;
+
+    margin-bottom:18px;
+}
+
+.user-wrapper{
+
+    justify-content:flex-end;
+}
+
+.bot-wrapper{
+
+    justify-content:flex-start;
+}
+
+/* ========================================= */
+/* MESSAGE BUBBLE */
+/* ========================================= */
+
+.message{
+
+    max-width:82%;
+
+    padding:16px 18px;
+
+    border-radius:22px;
+
+    line-height:1.7;
+
+    font-size:14px;
+
+    animation:fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(8px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+    }
+}
+
+/* ========================================= */
+/* BOT */
+/* ========================================= */
+
+.bot-message{
+
+    background:
+    rgba(255,255,255,0.08);
+
+    color:white;
+
+    border-bottom-left-radius:6px;
+
+    border:
+    1px solid rgba(255,255,255,0.05);
+}
+
+/* ========================================= */
+/* USER */
+/* ========================================= */
+
+.user-message{
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color:white;
+
+    border-bottom-right-radius:6px;
+}
+
+/* ========================================= */
+/* TIME */
+/* ========================================= */
+
+.time{
+
+    margin-top:8px;
+
+    font-size:11px;
+
+    opacity:0.65;
+}
+
+/* ========================================= */
+/* INPUT */
+/* ========================================= */
+
+.chat-input{
+
+    padding:18px;
+
+    background:#111827;
+
+    border-top:
+    1px solid rgba(255,255,255,0.08);
+
+    display:flex;
+    gap:12px;
+}
+
+.chat-input input{
+
+    flex:1;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:18px;
+
+    padding:16px 18px;
+
+    background:
+    rgba(255,255,255,0.08);
+
+    color:white;
+
+    font-size:15px;
+}
+
+.chat-input input::placeholder{
+
+    color:#94a3b8;
+}
+
+/* ========================================= */
+/* SEND BUTTON */
+/* ========================================= */
+
+.send-btn{
+
+    width:58px;
+    height:58px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    transition:0.3s;
+}
+
+.send-btn:hover{
+
+    transform:scale(1.08);
+}
+
+/* ========================================= */
+/* TYPING */
+/* ========================================= */
+
+.typing{
+
+    display:flex;
+    gap:5px;
+}
+
+.typing span{
+
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:#94a3b8;
+
+    animation:bounce 1.2s infinite;
+}
+
+.typing span:nth-child(2){
+
+    animation-delay:0.2s;
+}
+
+.typing span:nth-child(3){
+
+    animation-delay:0.4s;
+}
+
+@keyframes bounce{
+
+    0%,80%,100%{
+
+        transform:scale(0.7);
+    }
+
+    40%{
+
+        transform:scale(1.4);
+    }
+}
+
+/* ========================================= */
+/* MOBILE */
+/* ========================================= */
+
+@media(max-width:768px){
+
+    .chat-container{
+
+        width:96%;
+        height:88vh;
+
+        right:2%;
+        bottom:95px;
+    }
+}
+
+</style>
+
+<!-- ========================================= -->
+<!-- CHAT BUTTON -->
+<!-- ========================================= -->
+
+<button
+    class="chat-toggle"
+    onclick="toggleChat()"
+>
+
+    <i class="fa-solid fa-robot"></i>
+
+</button>
+
+<!-- ========================================= -->
+<!-- CHAT WINDOW -->
+<!-- ========================================= -->
+
+<div
+    class="chat-container"
+    id="chat-container"
+>
+
+    <!-- HEADER -->
+
+    <div class="chat-header">
+
+        <div class="chat-left">
+
+            <div class="bot-avatar">
+
+                🤖
+
+            </div>
+
+            <div class="bot-info">
+
+                <h2>
+
+                    NeuroGrade AI
+
+                </h2>
+
+                <div class="status">
+
+                    <div class="dot"></div>
+
+                    <p>
+
+                        AI Mentor Online
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button
+            class="close-btn"
+            onclick="toggleChat()"
+        >
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+    </div>
+
+    <!-- CHAT BODY -->
+
+    <div
+        class="chat-box"
+        id="chat-box"
+    >
+
+        <div class="message-wrapper bot-wrapper">
+
+            <div class="message bot-message">
+
+                👋 Welcome to NeuroGrade AI
+
+                <br><br>
+
+                Ask me about:
+                <br>
+
+                📚 Academics
+                <br>
+                📈 Performance
+                <br>
+                🧠 Stress
+                <br>
+                🎯 Career Guidance
+
+                <div class="time">
+
+                    Just now
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- INPUT -->
+
+    <div class="chat-input">
+
+        <input
+            type="text"
+            id="user-input"
+            placeholder="Ask NeuroGrade AI..."
+            onkeypress="handleKey(event)"
+        >
+
+        <button
+            class="send-btn"
+            onclick="sendMessage()"
+        >
+
+            <i class="fa-solid fa-paper-plane"></i>
+
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+/* ========================================= */
+/* TOGGLE */
+/* ========================================= */
+
+function toggleChat(){
+
+    let chat =
+        document.getElementById(
+            "chat-container"
+        );
+
+    if(chat.style.display === "flex"){
+
+        chat.style.display = "none";
+
+    }else{
+
+        chat.style.display = "flex";
+    }
+}
+
+/* ========================================= */
+/* ENTER KEY */
+/* ========================================= */
+
+function handleKey(event){
+
+    if(event.key === "Enter"){
+
+        sendMessage();
+    }
+}
+
+/* ========================================= */
+/* TIME */
+/* ========================================= */
+
+function getTime(){
+
+    let now = new Date();
+
+    return now.toLocaleTimeString([],
+    {
+        hour:'2-digit',
+        minute:'2-digit'
+    });
+}
+
+/* ========================================= */
+/* SEND */
+/* ========================================= */
+
+async function sendMessage(){
+
+    let input =
+        document.getElementById(
+            "user-input"
+        );
+
+    let message = input.value;
+
+    if(message.trim() === "") return;
+
+    let chatBox =
+        document.getElementById(
+            "chat-box"
+        );
+
+    /* USER MESSAGE */
+
+    chatBox.innerHTML += `
+
+        <div class="message-wrapper user-wrapper">
+
+            <div class="message user-message">
+
+                ${message}
+
+                <div class="time">
+
+                    ${getTime()}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+    input.value = "";
+
+    /* TYPING */
+
+    let typingId =
+        "typing-" + Date.now();
+
+    chatBox.innerHTML += `
+
+        <div
+            class="message-wrapper bot-wrapper"
+            id="${typingId}"
+        >
+
+            <div class="message bot-message">
+
+                <div class="typing">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+    chatBox.scrollTop =
+        chatBox.scrollHeight;
+
+    /* SEND TO FLASK */
+
+    let formData = new FormData();
+
+    formData.append(
+        "question",
+        message
+    );
+
+    let response = await fetch(
+
+        "/chatbot",
+
+        {
+            method:"POST",
+            body:formData
+        }
+
+    );
+
+    let data = await response.text();
+
+    /* REMOVE TYPING */
+
+    document.getElementById(
+        typingId
+    ).remove();
+
+    /* BOT RESPONSE */
+
+    chatBox.innerHTML += `
+
+        <div class="message-wrapper bot-wrapper">
+
+            <div class="message bot-message">
+
+                ${data.replace(/\\n/g, "<br>")}
+
+                <div class="time">
+
+                    ${getTime()}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+    chatBox.scrollTop =
+        chatBox.scrollHeight;
+}
+
+</script>
+</body>
+</html>
