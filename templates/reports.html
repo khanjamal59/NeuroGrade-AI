@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>NeuroGrade AI Reports</title>
+
+    <!-- GOOGLE FONT -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- FONT AWESOME -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+<style>
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+
+    background:#0f172a;
+    color:white;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* ========================================= */
+/* BACKGROUND GLOW */
+/* ========================================= */
+
+.bg-glow{
+
+    position:absolute;
+
+    width:350px;
+    height:350px;
+
+    background:#3b82f6;
+
+    filter:blur(140px);
+
+    top:-100px;
+    left:-100px;
+
+    opacity:0.3;
+}
+
+.bg-glow2{
+
+    position:absolute;
+
+    width:300px;
+    height:300px;
+
+    background:#9333ea;
+
+    filter:blur(120px);
+
+    bottom:-100px;
+    right:-100px;
+
+    opacity:0.3;
+}
+
+/* ========================================= */
+/* NAVBAR */
+/* ========================================= */
+
+.navbar{
+
+    width:100%;
+
+    padding:20px 50px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:rgba(255,255,255,0.05);
+
+    backdrop-filter:blur(10px);
+
+    border-bottom:1px solid rgba(255,255,255,0.1);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+}
+
+.logo{
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:#60a5fa;
+}
+
+.nav-links{
+
+    display:flex;
+
+    gap:30px;
+}
+
+.nav-links a{
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:500;
+
+    transition:0.3s;
+}
+
+.nav-links a:hover{
+
+    color:#60a5fa;
+}
+
+/* ========================================= */
+/* HERO */
+/* ========================================= */
+
+.hero{
+
+    padding:60px 8%;
+}
+
+.hero h1{
+
+    font-size:45px;
+
+    margin-bottom:15px;
+}
+
+.hero p{
+
+    color:#cbd5e1;
+
+    font-size:18px;
+}
+
+/* ========================================= */
+/* REPORT CONTAINER */
+/* ========================================= */
+
+.report-container{
+
+    padding:20px 8% 60px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(420px,1fr));
+
+    gap:30px;
+}
+
+/* ========================================= */
+/* REPORT CARD */
+/* ========================================= */
+
+.report-card{
+
+    background:rgba(255,255,255,0.06);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:22px;
+
+    padding:30px;
+
+    transition:0.4s;
+
+    box-shadow:
+    0 8px 30px rgba(0,0,0,0.2);
+}
+
+.report-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#60a5fa;
+}
+
+/* ========================================= */
+/* CARD HEADER */
+/* ========================================= */
+
+.card-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-bottom:25px;
+}
+
+.card-header i{
+
+    font-size:30px;
+
+    color:#60a5fa;
+}
+
+.card-header h2{
+
+    font-size:28px;
+}
+
+/* ========================================= */
+/* INFO BOX */
+/* ========================================= */
+
+.info-box{
+
+    margin-bottom:20px;
+
+    padding:18px;
+
+    border-radius:15px;
+
+    background:rgba(255,255,255,0.05);
+
+    border-left:5px solid #60a5fa;
+}
+
+.info-box h3{
+
+    margin-bottom:8px;
+
+    color:#60a5fa;
+
+    font-size:18px;
+}
+
+.info-box p{
+
+    color:#e2e8f0;
+
+    line-height:1.8;
+}
+
+/* ========================================= */
+/* EMAIL SECTION */
+/* ========================================= */
+
+.email-section{
+
+    margin-top:20px;
+}
+
+.input-group{
+
+    margin-bottom:18px;
+}
+
+.input-group label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#cbd5e1;
+}
+
+.input-group input{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,0.08);
+
+    color:white;
+
+    font-size:15px;
+}
+
+.input-group input::placeholder{
+
+    color:#94a3b8;
+}
+
+/* ========================================= */
+/* BUTTON */
+/* ========================================= */
+
+.send-btn{
+    display:flex;
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:0.3s;
+    
+}
+
+.send-btn:hover{
+
+    background:#1d4ed8;
+
+    transform:scale(1.02);
+}
+
+/* ========================================= */
+/* STATUS */
+/* ========================================= */
+
+#status{
+
+    margin-top:20px;
+
+    text-align:center;
+
+    font-weight:600;
+
+    color:#22c55e;
+}
+
+/* ========================================= */
+/* RESPONSIVE */
+/* ========================================= */
+
+@media(max-width:768px){
+
+    .navbar{
+
+        flex-direction:column;
+
+        gap:20px;
+    }
+
+    .hero h1{
+
+        font-size:34px;
+    }
+
+    .report-container{
+
+        grid-template-columns:1fr;
+    }
+}
+#send-btn{
+    display:flex;
+    justify-content:center;
+    
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+
+<div class="bg-glow"></div>
+
+<div class="bg-glow2"></div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+    <div class="logo">
+
+        NeuroGrade AI
+
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/dashboard">
+
+            Dashboard
+
+        </a>
+
+        <a href="/analytics">
+
+            Analytics
+
+        </a>
+
+        <a href="/insights">
+
+            AI Insights
+
+        </a>
+
+        <a href="/reports">
+
+            Reports
+
+        </a>
+
+    </div>
+
+</div>
+
+<!-- HERO -->
+
+<div class="hero">
+
+    <h1>
+
+        Student Performance Report
+
+    </h1>
+
+    <p>
+
+        AI-generated academic report
+        with insights, recommendations,
+        and personalized roadmap
+
+    </p>
+
+</div>
+
+<!-- REPORT CONTENT -->
+
+<div class="report-container">
+
+    <!-- STUDENT REPORT -->
+
+    <div class="report-card">
+
+        <div class="card-header">
+
+            <i class="fa-solid fa-file-lines"></i>
+
+            <h2>
+
+                Academic Report
+
+            </h2>
+
+        </div>
+
+        <div class="info-box">
+
+            <h3>
+
+                Predicted Grade
+
+            </h3>
+
+            <p>
+
+                {{ prediction }}
+
+            </p>
+
+        </div>
+
+        <div class="info-box">
+
+            <h3>
+
+                Attendance
+
+            </h3>
+
+            <p>
+
+                {{ attendance }}%
+
+            </p>
+
+        </div>
+
+        <div class="info-box">
+
+            <h3>
+
+                Stress Level
+
+            </h3>
+
+            <p>
+
+                {{ stress_level }}
+
+            </p>
+
+        </div>
+
+        <div class="info-box">
+
+            <h3>
+
+                Recommendation
+
+            </h3>
+
+            <p>
+
+                {{ recommendation }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- AI REPORT -->
+
+    <div class="report-card">
+
+        <div class="card-header">
+
+            <i class="fa-solid fa-robot"></i>
+
+            <h2>
+
+                AI Analysis
+
+            </h2>
+
+        </div>
+
+        <div class="info-box">
+
+            <h3>
+
+                AI Insights
+
+            </h3>
+
+            <p>
+
+                {{ ai_insights }}
+
+            </p>
+
+        </div>
+
+        <div class="info-box">
+
+            <h3>
+
+                Improvement Roadmap
+
+            </h3>
+
+            <p>
+
+                {{ roadmap }}
+
+            </p>
+
+        </div>
+
+    </div>
+<!-- ========================================== -->
+<!-- EMAIL + SENTIMENT ANALYSIS SECTION -->
+<!-- ========================================== -->
+
+<div class="report-card">
+
+    <div class="card-header">
+
+        <i class="fa-solid fa-paper-plane"></i>
+
+        <h2>
+            Send AI Report
+        </h2>
+
+    </div>
+
+    <div class="email-section">
+
+        <!-- ========================================== -->
+        <!-- NAME -->
+        <!-- ========================================== -->
+
+        <div class="input-group">
+
+            <label>
+                Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Enter Your Name"
+            >
+
+        </div>
+
+        <!-- ========================================== -->
+        <!-- EMAIL -->
+        <!-- ========================================== -->
+
+        <div class="input-group">
+
+            <label>
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter Email Address"
+            >
+
+        </div>
+
+        <!-- ========================================== -->
+        <!-- FEEDBACK -->
+        <!-- ========================================== -->
+
+        <div class="input-group">
+
+            <label>
+                Message / Feedback
+            </label>
+
+            <textarea
+                id="feedback"
+                placeholder="Enter your message or feedback"
+                rows="5"
+            ></textarea>
+
+        </div>
+
+        <!-- ========================================== -->
+        <!-- BUTTON -->
+        <!-- ========================================== -->
+
+        <div id="send-btn">
+
+            <button
+                class="send-btn"
+                onclick="sendReport()"
+            >
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+               
+
+            </button>
+
+        </div>
+
+        <!-- ========================================== -->
+        <!-- STATUS -->
+        <!-- ========================================== -->
+
+        <div id="status"></div>
+
+    </div>
+
+</div>
+
+<!-- ========================================== -->
+<!-- JAVASCRIPT -->
+<!-- ========================================== -->
+
+<script>
+
+async function sendReport(){
+
+    // ==========================================
+    // GET VALUES
+    // ==========================================
+
+    let name =
+        document.getElementById(
+            "name"
+        ).value;
+
+    let email =
+        document.getElementById(
+            "email"
+        ).value;
+
+    let feedback =
+        document.getElementById(
+            "feedback"
+        ).value;
+
+    // ==========================================
+    // VALIDATION
+    // ==========================================
+
+    if(
+        name.trim() === "" ||
+        email.trim() === "" ||
+        feedback.trim() === ""
+    ){
+
+        alert(
+            "Please fill all fields"
+        );
+
+        return;
+    }
+
+    // ==========================================
+    // FORM DATA
+    // ==========================================
+
+    let formData = new FormData();
+
+    formData.append(
+        "name",
+        name
+    );
+
+    formData.append(
+        "email",
+        email
+    );
+
+    formData.append(
+        "feedback",
+        feedback
+    );
+
+    // ==========================================
+    // LOADING STATUS
+    // ==========================================
+
+    document.getElementById(
+        "status"
+    ).innerHTML =
+    "Analyzing Sentiment & Sending Report...";
+
+    // ==========================================
+    // SEND REQUEST
+    // ==========================================
+
+    let response = await fetch(
+
+        "/send_report",
+
+        {
+            method:"POST",
+            body:formData
+        }
+
+    );
+
+    let data = await response.text();
+
+    // ==========================================
+    // SHOW RESULT
+    // ==========================================
+
+    document.getElementById(
+        "status"
+    ).innerHTML = data;
+}
+
+</script>
+
+<!-- ===================================== -->
+<!--  NEUROGRADE AI CHATBOT -->
+<!-- ===================================== -->
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+>
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+
+<style>
+
+:root{
+
+    --primary:#2563eb;
+    --secondary:#7c3aed;
+
+    --bg-dark:#0f172a;
+    --bg-card:#111827;
+
+    --text:#ffffff;
+    --text-light:#cbd5e1;
+
+    --border:
+    rgba(255,255,255,0.08);
+}
+
+*{
+
+    font-family:'Inter', sans-serif;
+}
+
+/* ========================================= */
+/* FLOAT BUTTON */
+/* ========================================= */
+
+.chat-toggle{
+
+    position:fixed;
+
+    bottom:28px;
+    right:28px;
+
+    width:74px;
+    height:74px;
+
+    border:none;
+
+    border-radius:22px;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color:white;
+
+    font-size:28px;
+
+    cursor:pointer;
+
+    z-index:9999;
+
+    box-shadow:
+    0 15px 40px rgba(37,99,235,0.35);
+
+    transition:0.35s ease;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.chat-toggle:hover{
+
+    transform:
+    translateY(-6px)
+    scale(1.05);
+
+    box-shadow:
+    0 25px 50px rgba(124,58,237,0.45);
+}
+
+/* ========================================= */
+/* CHAT WINDOW */
+/* ========================================= */
+
+.chat-container{
+
+    position:fixed;
+
+    bottom:120px;
+    right:28px;
+
+    width:400px;
+    height:680px;
+
+    display:none;
+    flex-direction:column;
+
+    overflow:hidden;
+
+    border-radius:30px;
+
+    background:
+    rgba(15,23,42,0.95);
+
+    backdrop-filter:blur(22px);
+
+    border:1px solid var(--border);
+
+    box-shadow:
+    0 30px 80px rgba(0,0,0,0.45);
+
+    z-index:9999;
+
+    animation:popup 0.35s ease;
+}
+
+@keyframes popup{
+
+    from{
+
+        opacity:0;
+
+        transform:
+        translateY(30px)
+        scale(0.95);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+        translateY(0)
+        scale(1);
+    }
+}
+
+/* ========================================= */
+/* HEADER */
+/* ========================================= */
+
+.chat-header{
+
+    padding:22px;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    color:white;
+}
+
+.chat-left{
+
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+/* ========================================= */
+/* AVATAR */
+/* ========================================= */
+
+.bot-avatar{
+
+    width:56px;
+    height:56px;
+
+    border-radius:18px;
+
+    background:
+    rgba(255,255,255,0.18);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:24px;
+}
+
+/* ========================================= */
+/* INFO */
+/* ========================================= */
+
+.bot-info h2{
+
+    font-size:18px;
+    font-weight:700;
+}
+
+.bot-info p{
+
+    margin-top:4px;
+
+    font-size:13px;
+
+    opacity:0.85;
+}
+
+/* ========================================= */
+/* ONLINE DOT */
+/* ========================================= */
+
+.status{
+
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.dot{
+
+    width:10px;
+    height:10px;
+
+    border-radius:50%;
+
+    background:#22c55e;
+
+    box-shadow:
+    0 0 10px #22c55e;
+}
+
+/* ========================================= */
+/* CLOSE */
+/* ========================================= */
+
+.close-btn{
+
+    border:none;
+
+    background:none;
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.close-btn:hover{
+
+    transform:rotate(90deg);
+}
+
+/* ========================================= */
+/* CHAT AREA */
+/* ========================================= */
+
+.chat-box{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    padding:24px;
+
+    background:
+    linear-gradient(
+        to bottom,
+        #0f172a,
+        #111827
+    );
+}
+
+/* ========================================= */
+/* SCROLLBAR */
+/* ========================================= */
+
+.chat-box::-webkit-scrollbar{
+
+    width:6px;
+}
+
+.chat-box::-webkit-scrollbar-thumb{
+
+    background:#334155;
+
+    border-radius:10px;
+}
+
+/* ========================================= */
+/* MESSAGE */
+/* ========================================= */
+
+.message-wrapper{
+
+    display:flex;
+
+    margin-bottom:18px;
+}
+
+.user-wrapper{
+
+    justify-content:flex-end;
+}
+
+.bot-wrapper{
+
+    justify-content:flex-start;
+}
+
+/* ========================================= */
+/* MESSAGE BUBBLE */
+/* ========================================= */
+
+.message{
+
+    max-width:82%;
+
+    padding:16px 18px;
+
+    border-radius:22px;
+
+    line-height:1.7;
+
+    font-size:14px;
+
+    animation:fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(8px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+    }
+}
+
+/* ========================================= */
+/* BOT */
+/* ========================================= */
+
+.bot-message{
+
+    background:
+    rgba(255,255,255,0.08);
+
+    color:white;
+
+    border-bottom-left-radius:6px;
+
+    border:
+    1px solid rgba(255,255,255,0.05);
+}
+
+/* ========================================= */
+/* USER */
+/* ========================================= */
+
+.user-message{
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color:white;
+
+    border-bottom-right-radius:6px;
+}
+
+/* ========================================= */
+/* TIME */
+/* ========================================= */
+
+.time{
+
+    margin-top:8px;
+
+    font-size:11px;
+
+    opacity:0.65;
+}
+
+/* ========================================= */
+/* INPUT */
+/* ========================================= */
+
+.chat-input{
+
+    padding:18px;
+
+    background:#111827;
+
+    border-top:
+    1px solid rgba(255,255,255,0.08);
+
+    display:flex;
+    gap:12px;
+}
+
+.chat-input input{
+
+    flex:1;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:18px;
+
+    padding:16px 18px;
+
+    background:
+    rgba(255,255,255,0.08);
+
+    color:white;
+
+    font-size:15px;
+}
+
+.chat-input input::placeholder{
+
+    color:#94a3b8;
+}
+
+/* ========================================= */
+/* SEND BUTTON */
+/* ========================================= */
+
+.send-btn{
+
+    width:58px;
+    height:58px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    transition:0.3s;
+}
+
+.send-btn:hover{
+
+    transform:scale(1.08);
+}
+
+/* ========================================= */
+/* TYPING */
+/* ========================================= */
+
+.typing{
+
+    display:flex;
+    gap:5px;
+}
+
+.typing span{
+
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:#94a3b8;
+
+    animation:bounce 1.2s infinite;
+}
+
+.typing span:nth-child(2){
+
+    animation-delay:0.2s;
+}
+
+.typing span:nth-child(3){
+
+    animation-delay:0.4s;
+}
+
+@keyframes bounce{
+
+    0%,80%,100%{
+
+        transform:scale(0.7);
+    }
+
+    40%{
+
+        transform:scale(1.4);
+    }
+}
+
+/* ========================================= */
+/* MOBILE */
+/* ========================================= */
+
+@media(max-width:768px){
+
+    .chat-container{
+
+        width:96%;
+        height:88vh;
+
+        right:2%;
+        bottom:95px;
+    }
+}
+
+</style>
+
+<!-- ========================================= -->
+<!-- CHAT BUTTON -->
+<!-- ========================================= -->
+
+<button
+    class="chat-toggle"
+    onclick="toggleChat()"
+>
+
+    <i class="fa-solid fa-robot"></i>
+
+</button>
+
+<!-- ========================================= -->
+<!-- CHAT WINDOW -->
+<!-- ========================================= -->
+
+<div
+    class="chat-container"
+    id="chat-container"
+>
+
+    <!-- HEADER -->
+
+    <div class="chat-header">
+
+        <div class="chat-left">
+
+            <div class="bot-avatar">
+
+                🤖
+
+            </div>
+
+            <div class="bot-info">
+
+                <h2>
+
+                    NeuroGrade AI
+
+                </h2>
+
+                <div class="status">
+
+                    <div class="dot"></div>
+
+                    <p>
+
+                        AI Mentor Online
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button
+            class="close-btn"
+            onclick="toggleChat()"
+        >
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+    </div>
+
+    <!-- CHAT BODY -->
+
+    <div
+        class="chat-box"
+        id="chat-box"
+    >
+
+        <div class="message-wrapper bot-wrapper">
+
+            <div class="message bot-message">
+
+                👋 Welcome to NeuroGrade AI
+
+                <br><br>
+
+                Ask me about:
+                <br>
+
+                📚 Academics
+                <br>
+                📈 Performance
+                <br>
+                🧠 Stress
+                <br>
+                🎯 Career Guidance
+
+                <div class="time">
+
+                    Just now
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- INPUT -->
+
+    <div class="chat-input">
+
+        <input
+            type="text"
+            id="user-input"
+            placeholder="Ask NeuroGrade AI..."
+            onkeypress="handleKey(event)"
+        >
+
+        <button
+            class="send-btn"
+            onclick="sendMessage()"
+        >
+
+            <i class="fa-solid fa-paper-plane"></i>
+
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+/* ========================================= */
+/* TOGGLE */
+/* ========================================= */
+
+function toggleChat(){
+
+    let chat =
+        document.getElementById(
+            "chat-container"
+        );
+
+    if(chat.style.display === "flex"){
+
+        chat.style.display = "none";
+
+    }else{
+
+        chat.style.display = "flex";
+    }
+}
+
+/* ========================================= */
+/* ENTER KEY */
+/* ========================================= */
+
+function handleKey(event){
+
+    if(event.key === "Enter"){
+
+        sendMessage();
+    }
+}
+
+/* ========================================= */
+/* TIME */
+/* ========================================= */
+
+function getTime(){
+
+    let now = new Date();
+
+    return now.toLocaleTimeString([],
+    {
+        hour:'2-digit',
+        minute:'2-digit'
+    });
+}
+
+/* ========================================= */
+/* SEND */
+/* ========================================= */
+
+async function sendMessage(){
+
+    let input =
+        document.getElementById(
+            "user-input"
+        );
+
+    let message = input.value;
+
+    if(message.trim() === "") return;
+
+    let chatBox =
+        document.getElementById(
+            "chat-box"
+        );
+
+    /* USER MESSAGE */
+
+    chatBox.innerHTML += `
+
+        <div class="message-wrapper user-wrapper">
+
+            <div class="message user-message">
+
+                ${message}
+
+                <div class="time">
+
+                    ${getTime()}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+    input.value = "";
+
+    /* TYPING */
+
+    let typingId =
+        "typing-" + Date.now();
+
+    chatBox.innerHTML += `
+
+        <div
+            class="message-wrapper bot-wrapper"
+            id="${typingId}"
+        >
+
+            <div class="message bot-message">
+
+                <div class="typing">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+    chatBox.scrollTop =
+        chatBox.scrollHeight;
+
+    /* SEND TO FLASK */
+
+    let formData = new FormData();
+
+    formData.append(
+        "question",
+        message
+    );
+
+    let response = await fetch(
+
+        "/chatbot",
+
+        {
+            method:"POST",
+            body:formData
+        }
+
+    );
+
+    let data = await response.text();
+
+    /* REMOVE TYPING */
+
+    document.getElementById(
+        typingId
+    ).remove();
+
+    /* BOT RESPONSE */
+
+    chatBox.innerHTML += `
+
+        <div class="message-wrapper bot-wrapper">
+
+            <div class="message bot-message">
+
+                ${data.replace(/\\n/g, "<br>")}
+
+                <div class="time">
+
+                    ${getTime()}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+    chatBox.scrollTop =
+        chatBox.scrollHeight;
+}
+
+</script>
+</body>
+
+</html>
