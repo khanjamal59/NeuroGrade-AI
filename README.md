@@ -45,7 +45,6 @@ The system helps teachers and institutions identify weak students early and impr
 | |   📊 Attendance Analytics                         | |
 | |   🤖 AI Chatbot Assistance                        | |
 | |   📈 Performance Prediction                       | |
-| |   🧠 Stress Level Detection                       | |
 | |   📄 AI Generated Reports                         | |
 | |                                                   | |
 | ---------------------------------------------------   |
