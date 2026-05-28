@@ -1,3 +1,4 @@
+#importing the libraries 
 from flask import Flask, render_template, request
 import pickle
 import numpy as np
@@ -22,7 +23,7 @@ from flask_mail import Mail, Message
 app = Flask(__name__)
 
 
-# MAIL CONFIGURATION
+# mail configuring 
 
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -38,13 +39,13 @@ app.config['MAIL_PASSWORD'] = 'password-email'
 mail = Mail(app)
 
 
-# LOAD ML MODEL
+# loading the model 
 
 model = pickle.load(
     open('performance_model.pkl', 'rb')
 )
 
-# GROQ CLIENT
+# GRgroq api 
 
 
 client = OpenAI(
@@ -55,14 +56,14 @@ client = OpenAI(
 )
 
 
-# GLOBAL STORAGE
+# global storage 
 
 
 student_data = {}
 
 conversation_history = []
 
-# HOME PAGE
+# this is for calling the home page 
 
 
 @app.route('/')
